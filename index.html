@@ -1,28 +1,24 @@
 <!DOCTYPE html> 
 <html>
 	<head>
-		<title>Cities</title>
+		<title>Cities of Macon</title>
+		<link rel="stylesheet" type="text/css" href="scripts/style.css"> <!--CSS Style Sheet-->
 	</head>
 
 	<body>
-		<script type='text/javascript' src='FIPS_StateName.js'></script>
-		<script type='text/javascript' src='FIPS_CountyName.js'></script>
-		<script type='text/javascript' src='jquery-1.11.0.js'></script>
+		<!--Include all necessary javascript files-->
+		<script type='text/javascript' src='scripts/FIPS_StateName.js'></script> <!--FIPS_StateName array-->
+		<script type='text/javascript' src='scripts/FIPS_CountyName.js'></script> <!--FIPS_CountyName array-->
+		<script type='text/javascript' src='scripts/jquery-1.11.0.js'></script> <!--jQuery library-->
+		<script type='text/javascript' src='scripts/cities.js'></script> <!--Primary javascript-->
 
-		<script type='text/javascript'>
-			function clicked()
-	{
-		alert("I'VE BEEN CLICKED! CALL AN AMBULANCE!")
-	}
-			alert(FIPS_StateName[0].join());
-			alert(FIPS_CountyName[100].join());	
-		</script>
+		<!--HTML stuff goes down here-->
 		<h2>Cities of Macon</h2>
 		<div id='main'>
 			Cities of Macon let's users find cities similar to each other using U.S. Census Data. Our end goal is to design and implement a smooth user experience in searching, displaying, and analyzing results.	
 			<button onclick='clicked()'>CLICK ME!</button>
 			<div id='output'>
-				Outputs here
+				Outputs here (WATCH ME!)
 			</div>
 		</div>
 	</body>

@@ -7,31 +7,86 @@
 
 	<body>
 		<!--Include all necessary javascript files-->
-		<script type='text/javascript' src='scripts/FIPS_StateName.js'></script> <!--FIPS_StateName array-->
-		<script type='text/javascript' src='scripts/FIPS_CountyName.js'></script> <!--FIPS_CountyName array-->
+		<script type='text/javascript' src='scripts/data/FIPS_StateName.js'></script> <!--FIPS_StateName array-->
+		<script type='text/javascript' src='scripts/data/FIPS_CountyName.js'></script> <!--FIPS_CountyName array-->
 		<script type='text/javascript' src='scripts/jquery-1.11.0.js'></script> <!--jQuery library-->
 		<script type='text/javascript' src='scripts/cities.js'></script> <!--Primary javascript-->
 
 		<!--HTML stuff goes down here-->
-		<h2>Cities of Macon</h2><h3>What Elements Compose Your City?</h3>
-		<div id='main'>
-			<center>
-			Cities of Macon let's users find cities similar to each other using U.S. Census Data. Our end goal is to design and implement a smooth user experience in searching, displaying, and analyzing results.	
-			</center>
-			<div id='search_div'>
-			<center>
-			<input type='text' name='search' id='search' value='Search by County'>
-			<button onclick='search_f()'>Search</button>
-			or
-			<select>
-				<option value="default">Select a State</option>
-				<option value="1">Alabama</option>
-				<option value="2">Florida</option>
-			</select>
-			</center>
-			<div id='output'>
+		<div id='main' align='center'>
+			<div id='header' align='center'>
+				<h2>Cities of Macon</h2>
+				<h3>What Elements Compose Your City?</h3>
 			</div>
+			<div id='content' align='center'>
+				<center>
+				Cities of Macon lets users find cities similar to each other using U.S. Census Data. Our end goal is to design and implement a smooth user experience in searching, displaying, and analyzing results.	
+				</center>
+				<div id='search_div'>
+					<center>
+					<input type='text' name='search' id='search' value='Search by County' onfocus='if(this.value==this.defaultValue) {this.value=""}'>
+					<button onclick='search_f()'>Search</button>
+					or
+					<select style='max-height: 250px'>
+						<option value="default">Select a State</option>
+						<option value = "01">Alabama</option>
+						<option value = "02">Alaska</option>
+						<option value = "04">Arizona</option>
+						<option value = "05">Arkansas</option>
+						<option value = "06">California</option>
+						<option value = "08">Colorado</option>
+						<option value = "09">Connecticut</option>
+						<option value = "10">Delaware</option>
+						<option value = "11">District Of Columbia</option>
+						<option value = "12">Florida</option>
+						<option value = "13">Georgia</option>
+						<option value = "15">Hawaii</option>
+						<option value = "16">Idaho</option>
+						<option value = "17">Illinois</option>
+						<option value = "18">Indiana</option>
+						<option value = "19">Iowa</option>
+						<option value = "20">Kansas</option>
+						<option value = "21">Kentucky</option>
+						<option value = "22">Louisiana</option>
+						<option value = "23">Maine</option>
+						<option value = "24">Maryland</option>
+						<option value = "25">Massachusetts</option>
+						<option value = "26">Michigan</option>
+						<option value = "27">Minnesota</option>
+						<option value = "28">Mississippi</option>
+						<option value = "29">Missouri</option>
+						<option value = "30">Montana</option>
+						<option value = "31">Nebraska</option>
+						<option value = "32">Nevada</option>
+						<option value = "33">New Hampshire</option>
+						<option value = "34">New Jersey</option>
+						<option value = "35">New Mexico</option>
+						<option value = "36">New York</option>
+						<option value = "37">North Carolina</option>
+						<option value = "38">North Dakota</option>
+						<option value = "39">Ohio</option>
+						<option value = "40">Oklahoma</option>
+						<option value = "41">Oregon</option>
+						<option value = "42">Pennsylvania</option>
+						<option value = "44">Rhode Island</option>
+						<option value = "45">South Carolina</option>
+						<option value = "46">South Dakota</option>
+						<option value = "47">Tennessee</option>
+						<option value = "48">Texas</option>
+						<option value = "49">Utah</option>
+						<option value = "50">Vermont</option>
+						<option value = "51">Virginia</option>
+						<option value = "53">Washington</option>
+						<option value = "54">West Virginia</option>
+						<option value = "55">Wisconsin</option>
+						<option value = "56">Wyoming</option>
+					</select>
+					</center>
+					<div id='output'>
+					</div>
+				</div>
 			</div>
+			<div id='bot'></div>
 		</div>
 	</body>
 </html> 

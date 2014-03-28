@@ -1,7 +1,6 @@
 function search_f()
 {
 	var s = ($("#search").val()).toLowerCase();
-	
 	var t = $("input[type='radio']:checked").val();
 	var matches = new Array();
 	m = 0;
@@ -55,13 +54,16 @@ function search_f()
 		}
 		else
 		{
+			$("#output").html("<table cellspacing='20px' cellpadding='0'><tr><td id='list1'></td><td id='list2'></td><td id='list3'></td></tr></table>");
 			// at elast 1 results
-			$("#output").html("The following counties match your search:<br/>");
 			i = 0;
 			// WHAT IF fin_m[i][0] == length of word - 2?
-			while (fin_m[i][0] > fin_m[0][0]/2.0)
+			while (fin_m[i][0] > fin_m[0][0]/2.0 && i < 42)
 			{
-				$("#output").append(FIPS_CountyName[fin_m[i][1]][1] + ", " + FIPS_CountyName[fin_m[i][1]][2] + "<br>");
+				j = i % 3 + 1;
+				n = "list" + j.toString();
+				b = FIPS_CountyName[fin_m[i][1]][1];
+				$("#output table #" + n).append("<div id='state_abbr'>"+FIPS_CountyName[fin_m[i][1]][2]+"</div>"+b+"<br>");
 				i++
 			}
 		}

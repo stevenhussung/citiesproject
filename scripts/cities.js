@@ -1,6 +1,3 @@
-alert(FIPS_StateName[0].join());
-
-// Real code below
 function search_f()
 {
 	var s = ($("#search").val()).toLowerCase();

@@ -13,16 +13,24 @@
 		<script type='text/javascript' src='scripts/cities.js'></script> <!--Primary javascript-->
 
 		<!--HTML stuff goes down here-->
-		<h2>Cities of Macon</h2>
-		<div id='menu'>
-			<a href='index.html'>Home</a>
-			<a href='pages/search.html'>Search</a>
-		</div>
+		<h2>Cities of Macon</h2><h3>What Elements Compose Your City?</h3>
 		<div id='main'>
+			<center>
 			Cities of Macon let's users find cities similar to each other using U.S. Census Data. Our end goal is to design and implement a smooth user experience in searching, displaying, and analyzing results.	
-			<button onclick='clicked()'>CLICK ME!</button>
+			</center>
+			<div id='search_div'>
+			<center>
+			<input type='text' name='search' id='search' value='Search by County'>
+			<button onclick='search_f()'>Search</button>
+			or
+			<select>
+				<option value="default">Select a State</option>
+				<option value="1">Alabama</option>
+				<option value="2">Florida</option>
+			</select>
+			</center>
 			<div id='output'>
-				Outputs here (WATCH ME!)
+			</div>
 			</div>
 		</div>
 	</body>

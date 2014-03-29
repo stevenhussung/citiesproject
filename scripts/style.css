@@ -60,11 +60,15 @@ input, select {
 
 #bot {
 	background: #ffffff;
-	min-height: 40px;
+	min-height: 30px;
 	position: absolute;
 	bottom: 0;
 	width: 80%;
 	text-align: center;
+}
+
+table {
+	width: 100%;
 }
 
 #list1, #list2, #list3 {
@@ -74,7 +78,22 @@ input, select {
 	vertical-align: top;
 }
 
-#state_abbr {
-background: #444444;
-float: left;
+.list_elem {
+	margin-top: 2px;
+	margin-bottom: 3px;
+	vertical-align: middle;
+	width: 100%;
+	height: 50px;
+}
+
+.state_abbr {
+	background: #444444;
+	float: left;
+	vertical-align: middle!important;
+	text-align: center;
+	height: 50px!important;
+	width: 50px!important;
+	font-size: 26px;
+	margin-right: 10px;
+	border-radius:25px;
 }

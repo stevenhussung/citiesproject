@@ -36,8 +36,11 @@ for i in range(len(counties)):
 		# ONLY DC
 		counties[i].append("")
 
-print states
-print counties[:50]
+states   = [[int(i[0])] + i[1:] for i in states]
+counties = [[int(i[0])] + i[1:] for i in counties]
+
+#print states
+#print counties[:50]
 
 f = open("FIPS_StateName.js", "w")
 f.write("var FIPS_StateName = ")

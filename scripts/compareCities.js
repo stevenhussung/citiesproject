@@ -12,9 +12,9 @@
 function compareCities(searchType, data, cityInd1, cityInd2, criteria, weights, numToSatisfy)
 {
 	// alpha is the similarity of the two cities
-	var alpha
-	var temp
-	var i
+	var alpha;
+	var temp;
+	var i;
 
 	switch(searchType){
 	case 0: // Root Sum Squared Relative Error

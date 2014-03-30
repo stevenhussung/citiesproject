@@ -25,6 +25,9 @@ function compareCities(searchType, data, cityInd1, cityInd2, criteria, weights, 
 			alpha += temp*temp
 		}
 
+	switch(searchType){
+	case 0: // Root Sum Squared Relative Error
+		
 		break;
 
 	default:

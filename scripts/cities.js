@@ -1,5 +1,34 @@
 var matches = new Array(); //To be populated with a list of matches
 
+function display_county(i)
+{
+	// i is the index in FIPS_CountyName
+	// j will be the index in DataSet
+	// DataSet has 53 more elements than FIPS_CountyName does
+	var j = i; //(guess here)i
+	var j2 = j+53;
+	var jtmp;
+	while (DataSet[j][0] != FIPS_CountyName[i][0])
+	{
+		jtmp = Math.floor((j+j2)/2);
+		if (DataSet[jtmp][0] > FIPS_CountyName[i][0])
+		{
+			j2 = jtmp;
+		}
+		else
+		{
+			j = jtmp;
+		}
+	}
+	var F = FIPS_CountyName[i];
+	var D = DataSet[j];
+	$("#content").html("<h3>"+F[1]+" "+F[3]+", "+F[2]+"</h3><br><table id='county_data'></table>");
+	for (k = 1; k < D.length; k++)
+	{	
+		$("#county_data").append("<tr><td>"+DataDict[k+1][1]+"</td><td>"+D[k]+"</td></tr>");
+	}
+}
+
 function search_county()
 {
 	var s = ($("#search").val()).toLowerCase();
@@ -90,7 +119,7 @@ function print_matches()
 	{
 		var j = i%3 + 1;
 		var id_n = "list" + j.toString();
-		$("#output table #" + id_n).append("<div class='list_elem'><div class='state_abbr'>"+matches[i][3]+"</div>"+matches[i][2]+" "+matches[i][4]+"</div>");
+		$("#output table #" + id_n).append("<div class='list_elem' onmouseover='this.style.background = red' onclick='display_county("+matches[i][5]+")'><div class='state_abbr'>"+matches[i][3]+"</div>"+matches[i][2]+" "+matches[i][4]+"</div>");
 	}
 }
 

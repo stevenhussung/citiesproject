@@ -1,34 +1,30 @@
-function search_f()
+var matches = new Array(); //To be populated with a list of matches
+
+function search_county()
 {
 	var s = ($("#search").val()).toLowerCase();
-	a = s.length;
-	if ((s.slice(a-7,a)).localeCompare(" county") == 0)
+
+	// Check if search criteria has been entered.
+	if (s == "search by county")
 	{
-		s = s.slice(0,a-7)
+		return 0;
 	}
-	else if ((s.slice(a-17,a)).localeCompare(" city and borough") == 0)
+
+	// Remove the common endings from search criteria because of unwanted matching
+	var search_length = s.length;
+	var endings = new Array("county","city and borough","borough","parish","census area","municipality");
+	for (var i = 0; i < endings.length; i++)
 	{
-		s = s.slice(0,a-17);
+		var end_length = endings[i].length;
+		var search_end = s.slice(search_length - end_length, search_length)
+		if (search_end == endings[i])
+		{
+			s = s.slice(0,search_length - end_length - 1)
+		}
 	}
-	else if ((s.slice(a-8,a)).localeCompare(" borough") == 0)
-	{
-		s = s.slice(0,a-8);
-	}
-	else if ((s.slice(a-7,a)).localeCompare(" parish") == 0)
-	{
-		s = s.slice(0,a-7);
-	}
-	else if ((s.slice(a-12,a)).localeCompare(" census area") == 0)
-	{
-		s = s.slice(0,a-12);
-	}
-	else if ((s.slice(a-13,a)).localeCompare(" municipality") == 0)
-	{
-		s = s.slice(0,a-13);
-	}
-	var t = $("input[type='radio']:checked").val();
-	var matches = new Array();
-	m = 0;
+
+	matches = [];
+	var m = 0;
 	if(s.length<3)
 	{
 		// Case when search criteria is short
@@ -37,65 +33,112 @@ function search_f()
 	else
 	{
 		// Matching by 3 letter segments
-		spell_cases = s.length - 2;
-		for (s_case = 0; s_case < spell_cases; s_case++)
+		var spell_cases = s.length - 2;
+		var max_m = 0;
+		var mat = 0;
+		for (var i = 0; i < FIPS_CountyName.length; i++)
 		{
-			for (i = 0; i < FIPS_CountyName.length; i++)
+			mat = 0;
+			s_n = FIPS_CountyName[i][1].toLowerCase();
+			for (var j = 0; j < spell_cases; j++)
 			{
-				s_case_end = s_case + 3;
-				s_n = FIPS_CountyName[i][1].toLowerCase();
-				s_m = s.slice(s_case, s_case_end);
-				if (s_n.match(s_m))
+				s_m = s.slice(j,j+3);
+				if (s_n.indexOf(s_m) != -1)
 				{
-					matches[m] = i;
-					m++
+					mat++;
 				}
 			}
-		}	
-		matches.sort(sortNumber);
-		var fin_m = new Array();
-		fin_m[0] = [0,0];
-		
-		for (i = 0; i < FIPS_CountyName.length; i++)
-		{
-			temp = 0;
-			for (r = 0; r < matches.length; r ++)
+			if (mat > 0)
 			{
-				if (i == matches[r])
+				matches[m] = [mat,FIPS_CountyName[i][0],FIPS_CountyName[i][1],FIPS_CountyName[i][2],FIPS_CountyName[i][3],i]
+				m++;
+				if (mat > max_m)
 				{
-					temp ++;
+					max_m = mat;
 				}
-			}
-			if (temp != 0)
-			{
-				fin_m.push([temp,i]);
 			}
 		}
-		(fin_m.sort()).reverse();
-		if (fin_m[0][0] == 0)
+		// Remove "least" relevant searches
+		for (var i = 0; i < matches.length; i++)
+		{
+			if (matches[i][0] < max_m/2)
+			{
+				matches.splice(i,1);
+				i--;
+			}
+		}
+
+		if (matches.length == 0)
 		{
 			// No search results
 			$("#output").html("No search results found. Please refine your search.");
 		}
 		else
 		{
-			$("#output").html("<table cellspacing='20px' cellpadding='0'><tr><td id='list1'></td><td id='list2'></td><td id='list3'></td></tr></table>");
-			// at elast 1 results
-			i = 0;
-			// WHAT IF fin_m[i][0] == length of word - 2?
-			while (fin_m[i][0] > fin_m[0][0]/2.0 && i < 24)
-			{
-				j = i % 3 + 1;
-				n = "list" + j.toString();
-				b = FIPS_CountyName[fin_m[i][1]][1];
-				$("#output table #" + n).append("<div class='list_elem'><div class='state_abbr'>"+FIPS_CountyName[fin_m[i][1]][2]+"</div>"+b+"</div>");
-				i++
-			}
+			$("#output").html("Sort by <select name='sort_by' id='sort_by' onchange='sort_by_change(this.options[this.selectedIndex].value)'><option value='0'>Relevance</option><option value='1'>State</option><option value='2'>A-Z</option></select><br/>");
+			$("#output").append("<table cellspace='0' cellpadding='0'></table>");
+			sort_by_change('0');
+			print_matches()
 		}
 	}
 }
 
-function sortNumber(a,b)
+function print_matches()
 {
-	return b - a;
+	$("#output table").html("<tr><td id='list1'></td><td id='list2'></td><td id='list3'></td></tr>");
+	for (var i = 0; i < matches.length; i++)
+	{
+		var j = i%3 + 1;
+		var id_n = "list" + j.toString();
+		$("#output table #" + id_n).append("<div class='list_elem'><div class='state_abbr'>"+matches[i][3]+"</div>"+matches[i][2]+" "+matches[i][4]+"</div>");
+	}
+}
+
+function sort_by_change(sort_index)
+{
+	switch (sort_index)
+	{
+		case '0':
+			// Relevance
+			matches.sort(sort_rel);
+			break;
+		case '1':
+			// State
+			matches.sort(sort_state);
+			break;
+		case '2':
+			// A-Z
+			matches.sort(sort_az);
+			break;
+	}
+	print_matches();
+}
+
+function sort_rel(a,b)
+{
+	if ((b[0] - a[0]) == 0)
+	{
+		return a[2].localeCompare(b[2]);
+	}
+	else 
+	{
+		return b[0] - a[0];
+	}
+}
+
+function sort_state(a,b)
+{
+	if ((a[3].localeCompare(b[3]))==0)
+	{
+		return b[0]-a[0];
+	}
+	else
+	{
+		return a[3].localeCompare(b[3]);
+	}
+}
+
+function sort_az(a,b)
+{
+	return a[2].localeCompare(b[2]);
 }

@@ -42,13 +42,14 @@ function compareCities(searchType, cityInd1, cityInd2, criteria, weights, numToS
 
 //This function is called similarly, but will compare pivotInd to ALL other counties. This function will return numToReturn counties indices in a sorted list. It will not return the city itself.
 
+//weights and numToSatisfy are used for more sophisticated sorting algorithms, which we have yet to implement.
 function compareToAllCities(searchType, pivotInd, criteria, weights, numToSatisfy, numToReturn)
 {
 	// alpha is the similarity of the two cities
 	var results = new Array();
 	var alpha;
-	var pivotTemp;
-	var otherTemp;
+	//var pivotTemp;
+	//var otherTemp;
 	var temp;
 	var i;
 

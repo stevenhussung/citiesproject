@@ -67,10 +67,10 @@ print "Data processing finished."
 #Sample criteria
 areaNum = 409 #This is Bibb County's code
 data[areaNum]
-criteria = [-1]*52
-criteria[1] = 0.2
-#criteria[9] = 0.2
-criteria[32] = 0.1
+criteria = [False]*52
+criteria[1] = True
+#criteria[9] = True
+criteria[32] = True
 nameMatches = []
 
 #Begin control loop
@@ -86,44 +86,45 @@ while entry!= "q":
     print "r/R change area used as \"pivot\""
     print "g/G show census data for pivot city"
     print "q/Q quit program"
-    print "m/M quickly multiply all tolerance values by 1.1 or 0.9. "
     entry = raw_input().strip().lower()
     print "--------------------"
     
     if entry == "s":
         #Search for matches
         print "Searching database for matches"
-        areasLikeSample = areaSearch(areaNum, criteria, data)
+        distanceToCity = areaSearch(areaNum, criteria, data)
+        areasLikeSample = zip(*distanceToCity)[0]
+        distanceToCity  = zip(*distanceToCity)[1]
+
         nameMatches = [data[areasLikeSample[i]][0] for i in range(len(areasLikeSample))]
         
         #Display matches
+        print "\nDistance:\tCounty Name:"
         for i in range(len(nameMatches)):
-            print data[areasLikeSample[i]][0]
+            print distanceToCity[i], "\t", data[areasLikeSample[i]][0]
         
     elif entry == "d":
         print "Display current criteria"
         print ""
         print "Current Area:", data[areaNum][0]
         print ""
-        print "Criterion Number:\tTolerance:\tName:"
+        print "Criterion Number:\tName:"
         for i in range(len(criteria)):
-            if criteria[i] == -1:
-                continue
-            else:
-                print str(i) + "\t\t\t" + str(criteria[i]*100) + "%\t\t" + extractName(dataDict,i)
+            if criteria[i]:
+                print str(i) + "\t\t\t" + extractName(dataDict,i)
         print ""
 
     elif entry == "a":
-        print "Add, edit, or delete criterion"
+        print "Add or delete criterion"
         print "enter number of criterion"
         number = int(raw_input().strip())
         print extractName(dataDict,number)
-        print "enter desired tolerance. Enter \"20\" if you would like a tolerance of 20% or 0.2"
-        print "if you would like to eliminate the criterion, enter -1"
-        tolerance = float(raw_input().strip())/100.0
-        criteria[number] = tolerance
-        if criteria[number]*100 == -1:
-            criteria[number] = -1
+        if(criteria[number]):
+            print "Would you like to remove this criterion? y/n"
+            criteria[number] = not raw_input()=="y"
+        else:
+            print "Would you like to add this criterion? y/n"
+            criteria[number] = raw_input()=="y"
 
     elif entry == "f":
         print "Display full list of criteria:"
@@ -132,7 +133,7 @@ while entry!= "q":
 
     elif entry == "w":
         print "Reset criteria"
-        criteria = [-1]*52
+        criteria = [False]*52
 
     elif entry == "r":
         entry = "c".lower()
@@ -153,6 +154,7 @@ while entry!= "q":
             for i in range(len(data)):
                 if data[i][0].lower().find(searchString) >= 0:
                     matchList = matchList + [[i,data[i][0]]]
+                    
             
             if len(matchList) > 0:
                 for i in range(len(matchList)):
@@ -198,19 +200,13 @@ while entry!= "q":
              print "  " + extractName(dataDict, i).ljust(105) + str(data[areaNum][i] + symbol).ljust(19) + " " + USValue + symbol
              print "-"*140
 
-    elif entry == "m":
-        print "Increase or decrease tolerances: type i or j respectively."
-        entry = raw_input().strip().lower()
-        for i in xrange(len(criteria)):
-            if criteria[i] != -1:
-                criteria[i] *= 1 + (0.1 if entry == "i" else -0.1)
-                #criteria[i] = 0.01 * round(100 * criteria[i]) Rounding causes errors -- don't. 
-
     elif entry == "q":
-        print "Thank you for using this program. I hope you have found it useful."
+        print "Thank you for using this program! We hope you found it useful."
         print ""
         print " - - - - - - - - - - - -"
         print " -  Steven R. Hussung  -"
+        print " -   Bryan B. Danley   -"
+        print " -  Patrick M. Hobbs   -"
         print " -   Developed 2013    -"
         print " - - - - - - - - - - - -"
         print ""

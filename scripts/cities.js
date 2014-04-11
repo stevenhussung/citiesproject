@@ -71,7 +71,7 @@ function find_similar(pivot_id, fips_id, x)
 				h2 = htmp;
 			}
 		}
-		$("#legend").append("<tr><td style='background: " + color_id[i] + "' class='col_code'>" + (i+1) + "</td><td class='county_name' onclick='display_county(" + h + ")'>"+FIPS_CountyName[h][1] + " " + FIPS_CountyName[h][3] + ", " + FIPS_CountyName[h][2] + "</td></tr>");
+		$("#legend").append("<tr><td style='background: " + color_id[i] + "' class='col_code'>" + (i+1) + "</td><td class='county_name' onclick='display_county(" + h + ")'>"+FIPS_CountyName[h][1] + " " + FIPS_CountyName[h][3] + ", " + FIPS_CountyName[h][2] + " (" + Math.floor((1-C[i][0])*1000)/10 + "%)</td></tr>");
 	}
 	$(".axislabel select").append("<option value='0'>Change to...</option>");
 	for (l = 1; l < 52; l++)
@@ -161,7 +161,7 @@ function display_county(i)
 	}
 	var F = FIPS_CountyName[i];
 	//var D = DataSet[j];
-	$("#content").html("<h3>"+F[1]+" "+F[3]+", "+F[2]+"</h3><table id='county_data'></table><div class='county_buttons' id='compare' onclick='find_similar(" + j + "," + i + ",["+default_list_ids.join()+"])'>Find Similar Cities</div><div onclick='return_search()' class='county_buttons'>Return to Search</div>");
+	$("#content").html("<h3>"+F[1]+" "+F[3]+", "+F[2]+"</h3><table id='county_data'></table><div class='county_buttons' id='compare' onclick='find_similar(" + j + "," + i + ",["+default_list_ids.join()+"])'>Find Similar Counties</div><div onclick='return_search()' class='county_buttons'>Return to Search</div>");
 	$("#county_data").append("<table class='dat_tab' id='pop' align='center' cellspacing='0' cellpadding='0'><tr><th>Population<div onclick='expand_list(0,"+j+")'><i>Expand</i></div></th></tr><tr><td id='pop_list'></td></tr></table");
 	$("#county_data").append("<table class='dat_tab' id='house' align='center' cellspacing='0' cellpadding='0'><tr><th>Housing<div><i>Expand</i></div></th></tr><tr><td id='house_list'></td></tr></table");
 	$("#county_data").append("<table class='dat_tab' id='bus' align='center' cellspacing='0' cellpadding='0'><tr><th>Business<div><i>Expand</i></div></th></tr><tr><td id='bus_list'></td></tr></table");

@@ -17,7 +17,7 @@ def extractName(dataDict, i):
 
 #Read the data from "DataSet.txt"
 print "Reading data"
-dataset = open("DataSet.txt")
+dataset = open("data/DataSet.txt")
 dataSetLines = dataset.read().split("\n")
 dataset.close()
 
@@ -33,7 +33,7 @@ del rawData[-1]
 
 #Create a dictionary to convert area codes into area names
 print "Creating county code translator"
-areasFile = open("FIPS_CountyName.txt")
+areasFile = open("data/FIPS_CountyName.txt")
 areasString = areasFile.read().strip()
 areasFile.close()
 
@@ -49,7 +49,7 @@ del codeToArea
 
 #Read general attribute information in
 print  "Reading general attribute information"
-dictFile = open("DataDict.txt")
+dictFile = open("data/DataDict.txt")
 dataDict = dictFile.read().strip().split("\n")
 dictFile.close()
 dictHeader = dataDict[0]

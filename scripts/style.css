@@ -102,3 +102,79 @@ table {
 	margin-right: 10px;
 	border-radius:10px;
 }
+
+.county_buttons {
+	display: inline;
+	width: 150px;
+	margin: 0px 10px;
+	padding: 5px;
+	background: #aaa;
+}	
+
+.dat_tab {
+	width: 75%;
+	text-align: left!important;
+	padding-left: 1em;
+	margin-bottom: 0.5em;
+}
+
+.dat_tab th {
+	padding: 10px 1em;
+}
+
+.dat_tab div {
+	display: inline;
+	font-size: 75%;
+	text-decoration: italic;
+	float: right;
+	margin: auto;
+}
+
+.dat_left {
+	padding-left: 2em;
+	width: 80%;
+}
+
+.dat_right {
+	width: 20%;
+}
+
+#pop td {
+	background: #F4cccc;
+}
+
+#pop th {
+	background: #EE9999;
+}
+
+#house td {
+	background: #FFF2CC;
+}
+
+#house th {
+	background: #FFE599;
+}
+
+#bus th {
+	background: #9FC5E8;
+}
+
+#bus td {
+	background: #C9DAF8;
+}
+
+#inc th {
+	background: #B4A7D6;
+}
+
+#inc td {
+	background: #D9D2E9;
+}
+
+#land th {
+	background: #B6D7A8;
+}
+
+#land td {
+	background: #D9EAD3;
+}

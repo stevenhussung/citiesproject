@@ -52,19 +52,15 @@ function compareToAllCities(searchType, pivotInd, criteria, weights, numToSatisf
 	//var otherTemp;
 	var temp;
 	var i;
-
-	for(i = 0; i < DataSet.length; i++) {
+	for(i = 1; i < DataSet.length; i++) {
 		results[results.length] = [compareCities(searchType, pivotInd, i, criteria, weights, numToSatisfy), i];
 	}
 
 	//Remove self
-	results = results.splice(pivotInd, 1);
-
+	//	results.splice(pivotInd-1, 1);
 	//Sort Results
 	results.sort();
-	
 	//Concatenate Results
 	results = results.slice(0, numToReturn);
-	
 	return results;
 }

@@ -48,5 +48,5 @@ DataDictTrans = [[],
 [2, "Retail trade sales per capita", "$", ""],
 [2, "Accommodation and Food Service sales", "$", ""],
 [1, "New private housing units authorized", "", ""],
-[4, "Land area", "", " sq mi"],
-[0, "Population density", "", ""]]
+[4, "Land area", "", " mi<sup>2</sup>"],
+[0, "Population density", "", " ppl/mi<sup>2</sup>"]]
